@@ -2,7 +2,7 @@ sudo: false
 language: ruby
 rvm:
   - 2.6.1
-  - ruby-head
+
 env:
   - RUBY_VERSION_FOR_DEPLOY=2.6.2
 branches:
