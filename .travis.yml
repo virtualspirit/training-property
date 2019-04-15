@@ -11,6 +11,7 @@ before_install:
   - travis_retry gem update --system
   - travis_retry gem install bundler
   - bundle install
+  - mysql -e 'CREATE DATABASE training-property_development;'
 
 services:
   - mysql
