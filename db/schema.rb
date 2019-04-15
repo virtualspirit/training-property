@@ -10,7 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_12_120449) do
+ActiveRecord::Schema.define(version: 2019_04_15_100603) do
+
+  create_table "amenities", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "property_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_amenities_on_property_id"
+  end
+
+  create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "property_id"
+    t.text "image_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_photos_on_property_id"
+  end
+
+  create_table "properties", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "title"
+    t.string "price"
+    t.integer "parking"
+    t.integer "bedroom"
+    t.integer "toilet"
+    t.integer "floor"
+    t.string "buildsize"
+    t.string "landsize"
+    t.string "locations"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_properties_on_user_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +58,7 @@ ActiveRecord::Schema.define(version: 2019_04_12_120449) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "amenities", "properties"
+  add_foreign_key "photos", "properties"
+  add_foreign_key "properties", "users"
 end

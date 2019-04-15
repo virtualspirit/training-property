@@ -1,0 +1,80 @@
+<%= form_with(model: property, local: true) do |form| %>
+  <% if property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :parking %>
+    <%= form.number_field :parking %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bedroom %>
+    <%= form.number_field :bedroom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :toilet %>
+    <%= form.number_field :toilet %>
+  </div>
+
+  <div class="field">
+    <%= form.label :floor %>
+    <%= form.number_field :floor %>
+  </div>
+
+  <div class="field">
+    <%= form.label :buildsize %>
+    <%= form.text_field :buildsize %>
+  </div>
+
+  <div class="field">
+    <%= form.label :landsize %>
+    <%= form.text_field :landsize %>
+  </div>
+
+  <div class="field">
+    <%= form.label :locations %>
+    <%= form.text_field :locations %>
+  </div>
+
+  <div class="field">
+  <%= form.fields_for :amenities do |a| %>
+    <%= a.label :name, "Amenities" %>
+    <%= a.text_field :name %>
+  <% end %>
+  </div>
+
+  <div class="field">
+  <%= form.fields_for :photos do |p| %>
+    <%= p.label :image, "Add Photos" %>
+    <%= p.file_field :image %>
+  <% end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
