@@ -9,6 +9,7 @@
 # And be sure to use new-style password hashing:
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
+DATABASE_URL: mysql2://baef49167279e4:a574819f@us-cdbr-iron-east-02.cleardb.net/heroku_13cbd09b6f6488f
 default: &default
   adapter: mysql2
   encoding: utf8
