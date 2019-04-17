@@ -48,7 +48,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: training-property_production
-  username: training-property
-  password: <%= ENV['TRAINING-PROPERTY_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
