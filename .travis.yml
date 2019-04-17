@@ -7,12 +7,19 @@ branches:
   only:
     - master
 cache: bundler
+
 before_install:
   - travis_retry gem update --system
   - travis_retry gem install bundler
   - bundle install
-  - mysql -e 'CREATE DATABASE training-property_development;'
+  - mysql -u root -e 'CREATE DATABASE training-property_development;'
 
 services:
   - mysql
+
+test:
+  adapter: mysql2
+  database: training-property_development
+  username: travis
+  encoding: utf8
 
