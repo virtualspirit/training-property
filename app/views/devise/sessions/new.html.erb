@@ -1,0 +1,57 @@
+<%= stylesheet_link_tag "adminator/style-add.css"%>
+<div class="app">
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+    <script>
+      window.addEventListener('load', function load() {
+        const loader = document.getElementById('loader');
+        setTimeout(function() {
+          loader.classList.add('fadeOut');
+      }, 300);
+      });
+    </script>
+    <div class="peers ai-s fxw-nw h-100vh">
+      <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-c bgpY-c bgsz-cv" style="background-image:url(<%= asset_path 'adminator/bg.jpg'%>)">
+        <div class="pos-a centerXY">
+          <div class="bgc-white bdrs-50p pos-r" style="width:120px;height:120px">
+            <%= image_tag "adminator/logo.png", class: "pos-a centerXY" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bgc-white scrollable pos-r" style="min-width:320px">
+        <h4 class="fw-300 c-grey-900 mB-40">Login</h4>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="form-group">
+            <%= f.label :email, class: "text-normal text-dark" %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password, class: "text-normal text-dark" %><br />
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+          <% if devise_mapping.rememberable? %>
+            <div class="form-group">
+              <div class="peers ai-c jc-sb fxw-nw">
+                <div class="peer">
+                  <div class="checkbox checkbox-circle checkbox-info peers ai-c">
+                    <%= f.check_box :remember_me, class: "peer" %>
+                    <%= f.label :remember_me, class: "peers peer-greed js-sb ai-c" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="actions">
+            <%= f.submit "Log in", class: "btn btn-primary" %>
+          </div>
+          <% end %>
+          <div class="form-group">
+            <%= render "devise/shared/links" %>
+          </div>
+      </div>
+    </div>
+    <%= javascript_include_tag "adminator/vendor.js" %>
+    <%= javascript_include_tag "adminator/bundle.js"%>
+  </div>
+
