@@ -1,0 +1,9 @@
+<%= form_with(model: [ @property, @property.bids.build ], local: true) do |form| %>
+    <p>
+        <%= form.label :price %><br>
+        <%= form.number_field :price %>
+    </p>
+    <p>
+        <%= form.submit %>
+    </p>
+<% end %>  

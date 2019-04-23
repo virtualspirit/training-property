@@ -2,7 +2,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @property.user %>
+  <%= @property.user.email %>
 </p>
 
 <p>
@@ -49,6 +49,65 @@
   <strong>Locations:</strong>
   <%= @property.locations %>
 </p>
+<p>
+  <strong>Start Auction:</strong>
+  <%= @property.auction_start %>
+</p>
+<p>
+  <strong>End Auction:</strong>
+  <%= @property.auction_end %>
+</p>
+
+<p>
+  <strong>Amenities: </strong>
+  <% @property.amenities.each do |a| %>
+    <%= a.name %>
+  <% end %>
+</p>
+<p>
+  <strong>Image: </strong>
+  <% @property.photos.each do |p| %>
+   <%= image_tag(p.image_url) %>
+  <% end %>
+</p>
+<p>
+  <strong>Bid Status: </strong>
+  <% if @property.auction_start < Date.current and Date.current < @property.auction_end %>
+    <%= render inline: "Ongoing Auction"%>
+    <% if @property.user_id != current_user.id%>
+      <p>
+        <%= render 'bids/form' %>
+      </p>
+    <% end %>
+  <% elsif @property.auction_start > Date.current %>
+    <%= render inline: "Upcoming Auction"%>
+  <% else %>
+    <%= render inline: "Auction Done" %>
+  <% end %>
+</p>
+<p>
+  <strong>Current Price: </strong>
+  <%= @property.auction_price %>
+</p>
+
+<table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Bid Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @property.bids.each do |bid| %>
+    <tr>
+      <%if bid.id.to_i > 0 %>
+        <td><%= @property.bids.find(bid.id.to_i).user.email %></td>
+      <% end %>
+      <td><%= bid.price %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_property_path(@property) %> |
 <%= link_to 'Back', properties_path %>

@@ -28,7 +28,8 @@ class PropertiesController < ApplicationController
   # POST /properties.json
   def create
     @property = Property.new(property_params)
-
+    @property.user_id = current_user.id
+    @property.auction_price = @property.price
     respond_to do |format|
       if @property.save
         format.html { redirect_to @property, notice: 'Property was successfully created.' }
@@ -72,7 +73,7 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.require(:property).permit(:user_id, :title, :price, :parking, :bedroom, :toilet, :floor, :buildsize, :landsize, :locations, 
+      params.require(:property).permit(:user_id, :title, :price, :parking, :bedroom, :toilet, :floor, :buildsize, :landsize, :locations, :auction_start, :auction_end, 
         :amenities_attributes => [:name], :photos_attributes => [:image]
         )
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_15_100603) do
+ActiveRecord::Schema.define(version: 2019_04_23_092414) do
 
   create_table "amenities", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "property_id"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 2019_04_15_100603) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["property_id"], name: "index_amenities_on_property_id"
+  end
+
+  create_table "bids", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "property_id"
+    t.integer "user_id"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_bids_on_property_id"
   end
 
   create_table "photos", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -31,7 +40,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_100603) do
   create_table "properties", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.bigint "user_id"
     t.string "title"
-    t.string "price"
+    t.integer "price"
     t.integer "parking"
     t.integer "bedroom"
     t.integer "toilet"
@@ -41,6 +50,9 @@ ActiveRecord::Schema.define(version: 2019_04_15_100603) do
     t.string "locations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "auction_start"
+    t.date "auction_end"
+    t.integer "auction_price"
     t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
@@ -59,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_100603) do
   end
 
   add_foreign_key "amenities", "properties"
+  add_foreign_key "bids", "properties"
   add_foreign_key "photos", "properties"
   add_foreign_key "properties", "users"
 end
